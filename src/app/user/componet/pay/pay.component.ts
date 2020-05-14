@@ -11,13 +11,14 @@ import {PayService} from "./service/pay.service";
 export class PayComponent implements OnInit {
 
   msg: string = '未完成支付';
+  username: string;
 
   constructor(private dialogRef: MatDialogRef<PayComponent>, @Inject(MAT_DIALOG_DATA) public orderMsg: OrderMsg,public payService: PayService) {
     console.log(orderMsg.qrCode);
   }
 
   jungleOrder() {
-    this.payService.jungleOrder("让让群", this.orderMsg.orderNo).subscribe(result => {
+    this.payService.jungleOrder(this.username, this.orderMsg.orderNo).subscribe(result => {
       if (result.msg === 'success') {
         this.msg = "交易成功";
         this.close();
@@ -31,6 +32,7 @@ export class PayComponent implements OnInit {
     this.dialogRef.close("true");
   }
   ngOnInit() {
+    this.username = localStorage.getItem("userName");
   }
 
 }

@@ -3,6 +3,4 @@ export class UserParam {
   password : string;
   phone: string;
   code: number;
-
-
 }

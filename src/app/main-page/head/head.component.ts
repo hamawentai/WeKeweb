@@ -3,6 +3,7 @@ import {CourseService} from '../body/service/course.service';
 import {Router} from "@angular/router";
 import {EmitService} from "../../route/emit.service";
 import {LoginService} from "../../onlineExam/login/service/login.service";
+import {DateService} from "../../allDate/date.service";
 
 @Component({
   selector: 'app-head',
@@ -12,9 +13,11 @@ import {LoginService} from "../../onlineExam/login/service/login.service";
 export class HeadComponent implements OnInit {
 
   inputMsg: string = '';
+  userPhoto: string;
 
   constructor(private router: Router,
-              public emitService: EmitService) {
+              public emitService: EmitService,
+              public dateService: DateService) {
   }
 
   enterSearch($event): void {
@@ -43,7 +46,7 @@ export class HeadComponent implements OnInit {
     this.emitService.eventEmit.subscribe((value: any) => {
       console.log('是否显示');
       if(value === "isView") {
-        // 这里就可以调取接口，刷新userList列表数据
+        // 这里就可以调取接口，刷新userList列表数据　
         this.isView = true;
       }
       if (value === 'isNotView') {
@@ -54,6 +57,7 @@ export class HeadComponent implements OnInit {
   }
 
   login() {
+    console.log("登录");
     this.emitService.eventEmit.emit("login");
   }
 
@@ -62,8 +66,7 @@ export class HeadComponent implements OnInit {
   }
 
   getUserName(): string {
-    // const name = localStorage.getItem("userName");
-    // console.log("name="+name);
+    this.userPhoto = localStorage.getItem('photoUrl');
     return localStorage.getItem("token");
   }
 }

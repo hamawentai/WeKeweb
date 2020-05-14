@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {PersonComponent} from '../msgInput/person/person.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Person} from '../msgInput/domain/person';
 import {UserService} from './service/user.service';
 import {History} from './domian/history';
@@ -9,13 +9,14 @@ import {UpdateComponent} from "./dialog/update/update.component";
 import {Photo} from "./domian/photo";
 import {PayComponent} from "./componet/pay/pay.component";
 import {OrderMsg} from "./domian/orderMsg";
+import {LoginService} from "../onlineExam/login/service/login.service";
+import {DateService} from "../allDate/date.service";
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css', '../ali-pay/ali-pay.component.css']
+  styleUrls: ['./user.component.css', '../ali-pay/ali-pay.component.css', './bind-account/bind-account.component.css']
 })
-// './bind-account/bind-account.component.css'
 export class UserComponent implements OnInit {
 
   personMsg: any;
@@ -24,13 +25,19 @@ export class UserComponent implements OnInit {
   person: Person;
   historys: History[];
   isVisible = false;
-  selected: string='1';
+  selected: string = '1';
   file: Photo;
-  constructor(private dialog: MatDialog, private route: ActivatedRoute,private userService: UserService) { }
 
-  openDialog(){
-    const dialogRef = this.dialog.open(PersonComponent,{
-      data:this.person
+  constructor(private dialog: MatDialog,
+              private route: ActivatedRoute,
+              private userService: UserService,
+              public dateService: DateService,
+              private router: Router) {
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(PersonComponent, {
+      data: this.person
     });
     dialogRef.afterClosed().subscribe(result => {
       this.personMsg = result;
@@ -40,10 +47,10 @@ export class UserComponent implements OnInit {
 
   // 支付
   openPay() {
-    const dialogRef = this.dialog.open(PayComponent,{
-      data:this.orderMsg
+    const dialogRef = this.dialog.open(PayComponent, {
+      data: this.orderMsg
     });
-    dialogRef.afterClosed().subscribe(result =>{
+    dialogRef.afterClosed().subscribe(result => {
       if (result != null && result === 'true') {
         this.person.permission = 'Teacher';
         this.selector('1');
@@ -52,18 +59,18 @@ export class UserComponent implements OnInit {
   }
 
   jungleOrder() {
-    this.userService.jungleOrderNo('让让群').subscribe(result => this.orderMsg=result);
+    this.userService.jungleOrderNo(this.userName).subscribe(result => this.orderMsg = result);
   }
 
   // 上传头像
   openUpload() {
-    const  dialogRef = this.dialog.open(UpdateComponent, {
+    const dialogRef = this.dialog.open(UpdateComponent, {
       data: this.person.url
     });
-    dialogRef.afterClosed().subscribe(result =>{
+    dialogRef.afterClosed().subscribe(result => {
       this.file = result;
       console.log("file ");
-      if (this.file.kind === '1'){
+      if (this.file.kind === '1') {
         this.upload(this.file.file);
       }
     })
@@ -82,30 +89,40 @@ export class UserComponent implements OnInit {
       formData.append('file', singleFile);
       console.log(singleFile);
     }
-    this.userService.uploadPhoto(formData).subscribe(result =>{
+    this.userService.uploadPhoto(formData).subscribe(result => {
       this.person.url = result.url;
-      console.log("url: "+this.person.url);
+      this.dateService.photoUrl = this.person.url;
+      localStorage.setItem("photoUrl", this.person.url);
+      console.log("url: " + this.person.url);
     });
   }
 
+  logoutUser() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    this.router.navigateByUrl('');
+  }
 
-  selector(select: string){
+
+  selector(select: string) {
     this.selected = select;
-    if (select === '3'){
+    if (select === '3') {
       this.jungleOrder();
     }
   }
-  getPerson(){
+
+  getPerson() {
     this.userService.getPersonById().subscribe(result => {
-      this.person=result
+      this.person = result
     });
   }
-  getHistory(){
+
+  getHistory() {
     this.userService.getHistoryById().subscribe(
       result => {
         console.log(result);
         if (result) {
-          this.historys=result;
+          this.historys = result;
         }
 
       }
@@ -114,6 +131,8 @@ export class UserComponent implements OnInit {
 
 
   ngOnInit() {
+    this.userName = localStorage.getItem("userName");
+    console.log(localStorage.getItem("userName"));
     this.getPerson();
     this.getHistory();
   }

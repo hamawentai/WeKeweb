@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Catalog} from "../domain/catalog";
 import {HttpClient} from "@angular/common/http";
 import {Upload} from "../domain/upload";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {Upload} from "../domain/upload";
 export class UploadService {
 
   catalog: Catalog[] = [new Catalog("章节名称",null)];
-  url: string = "http://10.0.0.31:8080/uploadApi/saveChapter";
+  url: string = environment.myUrl+"uploadApi/saveChapter";
 
   saveCatalogs(upload: Upload): void {
     this.http.post(this.url, upload).subscribe();

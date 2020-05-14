@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Course} from "../domain/course";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  url: string = 'http://10.0.0.31:8080/searchApi/course';
+  url: string = environment.myUrl+'searchApi/course';
 
   constructor(private http: HttpClient) { }
 

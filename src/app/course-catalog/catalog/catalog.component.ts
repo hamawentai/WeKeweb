@@ -8,6 +8,7 @@ import {WriteDemoComponent} from '../../write-demo/write-demo.component';
 import {Comment} from './domian/comment';
 import {CourseComment} from "./domian/courseComment";
 import {LearnTime} from "./domian/learnTime";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-catalog',
@@ -22,12 +23,16 @@ export class CatalogComponent implements OnInit {
   courseComments: CourseComment;
   learnTime: LearnTime;
   newComment: Comment;
+  time: string;
+  myPhotoUrl: string = localStorage.getItem('photoUrl');
+  userName: string = localStorage.getItem('userName');
   flag: string = '0';
 
 
   constructor(private router: Router,private route: ActivatedRoute,
               private catalogService: CatalogService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private datePipe: DatePipe) { }
 
   private getParam(index: string): string{
     return this.route.snapshot.queryParams[index];
@@ -49,19 +54,20 @@ export class CatalogComponent implements OnInit {
   }
 
   openDialog(kind: string): void {
+    this.time = this.datePipe.transform(new Date(), "yyyy-MM-dd");
     if (kind === '1'){
       const dialogRef = this.dialog.open(PublishComponent);//评论
       dialogRef.afterClosed().subscribe(result =>{
         console.log('ca '+result);
         this.catalogService.savaComment(this.courseId, result);
-        this.comments.push(new Comment('2','0','','',result,'用户名','','userid'));
+        this.comments.push(new Comment('2','0',this.time,this.myPhotoUrl,result,this.userName,'','userid'));
       });
     }else{
       const dialogRef = this.dialog.open(WriteDemoComponent);//提问
       dialogRef.afterClosed().subscribe(result =>{
         console.log('da '+result.title+"  "+result.content);
         this.catalogService.savaProblem(this.courseId, result.content, result.title);
-        this.comments.push(new Comment('1','0','','',result.content,'用户名',result.title,'userid'));
+        this.comments.push(new Comment('1','0',this.time,this.myPhotoUrl,result.content,this.userName,result.title,'userid'));
       });
     }
   }

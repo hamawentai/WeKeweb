@@ -15,10 +15,10 @@ import {environment} from "../../../environments/environment";
 export class UserService {
 
 
-  url: string = 'http://10.0.0.31:8080/userApi/getUser';
-  url2: string = 'http://10.0.0.31:8080/userApi/changeUser';
-  url3: string = 'http://10.0.0.31:8080/upload/photo';
-  url4: string = 'http://10.0.0.31:8080/payApi/tobePublisher';
+  url: string = environment.myUrl+'userApi/getUser';
+  url2: string = environment.myUrl+'userApi/changeUser';
+  url3: string = environment.myUrl+'upload/photo';
+  url4: string = environment.myUrl+'payApi/tobePublisher';
 
   history: History[] = [];
 
@@ -33,10 +33,6 @@ export class UserService {
     // 通过Id返回History信息
     const loginInfoUrl = environment.baseUrl + "user/userLoginInfo?userName="+localStorage.getItem('userName');
     return this.http.get<History[]>(loginInfoUrl).pipe();
-    // return this.http.get<History[]>(this.url).pipe(
-    //   retry(3)
-    // );
-    // return of(this.history);
   }
 
   uploadPhoto(file: FormData): Observable<Photourl>{

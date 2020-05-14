@@ -11,13 +11,13 @@
             <a class="nav-link" routerLink="/list">免费课程</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="test">题集</a>
+            <a class="nav-link" routerLink="test"></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="publicProblem">出题</a>
+            <a class="nav-link" routerLink="publicProblem"></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="approvalPage">审核</a>
+            <a class="nav-link" routerLink="approvalPage"></a>
         </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0 ml-3">
@@ -30,7 +30,7 @@
       <div class="pt-2">
           <div *ngIf="getUserName()">
             <a routerLink="/user" target="_self">
-              <nz-avatar nzIcon="anticon anticon-user" nzSrc="https://img3.mukewang.com/59e5c5b30001aa2601000100-100-100.jpg"></nz-avatar>
+              <nz-avatar nzIcon="anticon anticon-user" nzSrc="{{ userPhoto===''?dateService.photoUrl:userPhoto}}"></nz-avatar>
             </a>
           </div>
           <div *ngIf="!getUserName()">

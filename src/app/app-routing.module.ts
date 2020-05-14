@@ -26,6 +26,7 @@ import {UploadVideoComponent} from "./upload-video/upload-video.component";
 import {SearchComponent} from "./search/search.component";
 import {CanDeactivateGuardService} from "./video/service/can-deactivate-guard.service";
 import {BindAccountComponent} from "./user/bind-account/bind-account.component";
+import {DateService} from "./allDate/date.service";
 
 const routes: Routes = [
   { path: 'test' , component: TestComponent , canActivate:[LoginGuard]} ,
@@ -50,13 +51,13 @@ const routes: Routes = [
   {path: 'classicProblem' , component: ClassicProblemComponent , canActivate:[LoginGuard]},
   {path: 'backstage' , component: BackstageComponent , canActivate:[LoginGuard]
     , children : [
+      {path: 'video', component: UploadVideoComponent},
       {path: 'userManager', component: UserManagemetComponent},
       {path: 'recommend', component:RecommendComponent}
     ]},
   {path: 'uploadVideo', component: UploadVideoComponent},
   {path:'search', component: SearchComponent},
   {path:'reply', component: ReplayComponent},
-  {path: 'ad', component: RecommendComponent}
 ];
 
 

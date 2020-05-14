@@ -17,7 +17,9 @@ export class UpdateComponent implements OnInit {
   imgUrl: any;
   fileName = '头像上传';
 
-  constructor(private sanitizer : DomSanitizer, private dialogRef: MatDialogRef<UpdateComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
+  constructor(private sanitizer : DomSanitizer,
+              private dialogRef: MatDialogRef<UpdateComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: string) {
     this.imgUrl = data;
   }
 

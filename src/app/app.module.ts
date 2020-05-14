@@ -63,6 +63,8 @@ import { AliPayComponent } from './ali-pay/ali-pay.component';
 import { PayComponent } from './user/componet/pay/pay.component';
 import { AllCourseComponent } from './backstage/recommend/componet/all-course/all-course.component';
 import { BindAccountComponent } from './user/bind-account/bind-account.component';
+import {DateService} from "./allDate/date.service";
+import {ArticleComponent} from "./article/article.component";
 
 const options: HighlightOptions = {
   theme: 'monokai_sublime',
@@ -73,6 +75,7 @@ const options: HighlightOptions = {
 @NgModule({
   declarations: [
     AppComponent,
+    ArticleComponent,
     TestComponent,
     DetailsComponent,
     HeadComponent,

@@ -7,7 +7,7 @@
     <th>课程名字</th>
     <th>图片</th>
     <th>简介</th>
-    <th>所属行业</th>
+    <th>所属类别</th>
     <th>替换</th>
   </tr>
   </thead>
@@ -18,9 +18,9 @@
     </td>
     <td (click)="showModal(ad.imgSrc, ad.courseName)">
       <img src="{{ ad.imgSrc }}" width="40" height="40">
-      <span>{{ ad.kind }}</span>
+      <span style="margin-left: 10px">{{ ad.kind }}</span>
     </td>
-    <td>{{ ad.info }}</td>
+    <td style="width: 900px">{{ ad.info }}</td>
     <td>{{ ad.bleng }}</td>
     <td>
       <button nz-button nzType="primary" (click)="openDialog(i)">替换课程</button>

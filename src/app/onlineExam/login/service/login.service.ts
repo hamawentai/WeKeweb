@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgModule} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {retry} from "rxjs/operators";
 import {Observable} from "rxjs/index";
 import {environment} from "../../../../environments/environment";
 import {UserParam} from "../domain/UserParam";
+import {HeadComponent} from "../../../main-page/head/head.component";
+import {UserPhoto} from "../domain/UserPhoto";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -57,5 +59,10 @@ export class LoginService {
   setUserInfo(userName : string) {
     const userInfoUrl = environment.baseUrl + "page/userInfo?userName="+ userName;
     return this.http.get(userInfoUrl);
+  }
+
+  getUserPhoto(userName : string) {
+    const userPhotoUrl = environment.baseUrl + "user/userPhoto?userName="+ userName;
+    return this.http.get(userPhotoUrl);
   }
 }

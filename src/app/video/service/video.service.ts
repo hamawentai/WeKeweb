@@ -3,13 +3,14 @@ import {Observable, of} from 'rxjs';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {retry} from "rxjs/operators";
 import {Video} from "../domain/video";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
 
-  url: string = 'http://10.0.0.31:8080/videoApi/getVideo';
+  url: string = environment.myUrl+'/videoApi/getVideo';
 
   constructor(private http: HttpClient) { }
 

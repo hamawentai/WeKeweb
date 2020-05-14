@@ -10,7 +10,8 @@ import {Course} from "./domain/course";
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private searchService: SearchService) { }
+  constructor(private route: ActivatedRoute,
+              private searchService: SearchService) { }
 
   inputMsg: string;
   page: string;

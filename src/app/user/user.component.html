@@ -26,14 +26,14 @@
               </span>
             </a>
           </li>
-          <li>
-            <a [class]="selected==='2'?'on':''" (click)="selector('2')">
-              操作记录
-              <span class="arr">
-                <i class="icon-right2 anticon anticon-right"></i>
-              </span>
-            </a>
-          </li>
+          <!--<li>-->
+            <!--<a [class]="selected==='10'?'on':''" (click)="selector('2')">-->
+              <!--操作记录-->
+              <!--<span class="arr">-->
+                <!--<i class="icon-right2 anticon anticon-right"></i>-->
+              <!--</span>-->
+            <!--</a>-->
+          <!--</li>-->
           <li>
             <a [class]="selected==='4'?'on':''" (click)="selector('4')">
               更改邮箱
@@ -59,6 +59,7 @@
         <div class="formBox">
           <div class="setting-wrap setting-profile" id="setting-profile">
             <div class="common-title">个人信息
+              <button nz-button nzType="default" (click)="logoutUser()">logout</button>
               <a class="pull-right js-edit-info" (click)="openDialog()">
                 <i class="icon-note anticon anticon-edit"></i>编辑
               </a>
@@ -91,7 +92,7 @@
       </div>
     </div>
     <!--操作记录-->
-    <div *ngIf="selected==='2'" class="setting-right">
+    <div *ngIf="selected==='10'" class="setting-right">
       <div class="setting-right-wrap wrap-boxes settings">
 
         <div class="page-settings">
@@ -141,7 +142,7 @@
             <div class="cart-body-title">
               <div class="clearfix">
                 <div class="left trade-title">
-                  <span class="order">订单：</span>
+                  <span class="order" style="font-size:10px;">订单：</span>
                   <span class="num">{{ orderMsg.orderNo }}</span>
                 </div>
                 <div class="right">
@@ -151,10 +152,6 @@
               <ul class="js-itemUl item-ul" style="height: 150px;">
                 <li class="item clearfix">
                   <div class="item-left left clearfix">
-                    <a href="//coding.imooc.com/class/262.html" target="_blank">
-                      <img src="https://szimg.mukewang.com/5b6015ac00011ca105400300-160-90.jpg" width="160" height="90"
-                           class="left">
-                    </a>
                     <dl class="left">
                       <a target="_blank">
                         <dt>{{ orderMsg.subject }}</dt>

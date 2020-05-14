@@ -4,6 +4,7 @@ import {Catalog} from "./domain/catalog";
 import {UploadService} from "./service/upload.service";
 import {Upload} from "./domain/upload";
 import {Info} from "./domain/info";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-upload-video',
@@ -12,7 +13,10 @@ import {Info} from "./domain/info";
 })
 export class UploadVideoComponent implements OnInit {
 
-  constructor(private msg: NzMessageService, private uploadService: UploadService) {
+  uploadUrl: string = environment.myUrl + "upload/video"
+
+  constructor(private msg: NzMessageService,
+              private uploadService: UploadService) {
   }
 
   chapter: string[] = ["小节"];
@@ -35,14 +39,18 @@ export class UploadVideoComponent implements OnInit {
 
   str: string = 'xx';
   u = {
-    'catalogName': '',
-    'chapterName': ''
+    'catalogName': '哈哈',
+    'chapterName': '嘻嘻'
   };
 
   cc() {
     console.log("xxx" + this.courseName + "  " + this.content);
   }
 
+  /**
+   * 将str转换为utf-16
+   * @param str
+   */
   decode(str: string): string {
     console.log(str);
     let code = '';
@@ -53,6 +61,22 @@ export class UploadVideoComponent implements OnInit {
     return code;
   }
 
+  //　获得str的二进值形式
+  getByte(str: String): string {
+    var total2str = "";
+    for (var i = 0; i < str.length; i++) {
+      var num10 = str.charCodeAt(i);  ///< 以10进制的整数返回 某个字符 的unicode编码
+      var str2 = num10.toString(2);   ///< 将10进制数字 转换成 2进制字符串
+
+      if( total2str == "" ){
+        total2str = str2;
+      }else{
+        total2str = total2str + " " + str2;
+      }
+    }
+    console.log("byte "+ total2str );
+    return total2str.toString();
+  }
 
   // 更改小节名
   changeTitle(i: string, j: string, catalogName: string, kind: string): void {
@@ -62,8 +86,8 @@ export class UploadVideoComponent implements OnInit {
     this.catalogName = catalogName;
     console.log("change  " + this.i + "  " + this.j);
     // 将章节名和小节名传给后台
-    this.u.catalogName = this.decode(this.catalogName);
-    this.u.chapterName = this.decode(this.catalogs[this.i].chapters[this.j]);
+    this.u.catalogName = this.getByte(this.catalogName);
+    this.u.chapterName = this.getByte(this.catalogs[this.i].chapters[this.j]);
   }
 
   // 更改章节名
@@ -80,7 +104,7 @@ export class UploadVideoComponent implements OnInit {
       return;
     }
     this.info = new Info(this.courseName, this.content, this.courseDiff, this.courseKind, this.courseLevel);
-    console.log("info "+this.info.courseName);
+    console.log("info " + this.info.courseName);
     let upload = new Upload(this.info, this.catalogs);
     this.uploadService.saveCatalogs(upload);
   }

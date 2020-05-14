@@ -3,6 +3,7 @@ import {ReplyService} from "../service/reply.service";
 import {Reply} from "../domain/reply";
 import {Po} from "../domain/po";
 import {ActivatedRoute} from "@angular/router";
+import {DateService} from "../../allDate/date.service";
 
 @Component({
   selector: 'app-replay',
@@ -18,8 +19,9 @@ export class ReplayComponent implements OnInit {
   };
 
   content: string = "";
-  userName: string = '让让群';
+  userName: string = localStorage.getItem('userName');
   nickname: string;
+  myPhotoUrl: string = localStorage.getItem('photoUrl');
   index: string = '-1';
   inputMsg: string;
   commentId: string;
@@ -27,12 +29,14 @@ export class ReplayComponent implements OnInit {
   reply: Reply;
   replyId: string;
 
-  constructor(private replyService: ReplyService,private activeRouer: ActivatedRoute) {
+  constructor(private replyService: ReplyService,
+              private activeRoute: ActivatedRoute,
+              public dateService: DateService) {
   }
 
   // 获得路由参数
   getParams(index: string): string {
-    return this.activeRouer.snapshot.queryParams[index];
+    return this.activeRoute.snapshot.queryParams[index];
   }
 
   // 1 直接回复 2 回复回复者
@@ -52,7 +56,7 @@ export class ReplayComponent implements OnInit {
     }
     this.nickname = nickname;
     console.log("content "+this.content);
-    this.replyService.saveReply(new Po("1", this.commentId, this.userName, this.content,"让让群")).subscribe(result =>{
+    this.replyService.saveReply(new Po("1", this.commentId, this.userName, this.content,this.nickname)).subscribe(result =>{
       this.getReply();
     });
     this.content = '';

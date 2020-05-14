@@ -3,14 +3,15 @@ import {Reply} from "../domain/reply";
 import {Observable, of} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Po} from "../domain/po";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReplyService {
 
-  url: string = 'http://10.0.0.31:8080/replyApi/detail';
-  url1 : string = 'http://10.0.0.31:8080/replyApi/saveReply';
+  url: string = environment.myUrl+'replyApi/detail';
+  url1 : string = environment.myUrl+'replyApi/saveReply';
 
   getReplys(commentId: string): Observable<Reply> {
     const params = new HttpParams()

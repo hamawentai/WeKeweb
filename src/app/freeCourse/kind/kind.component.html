@@ -7,7 +7,7 @@
         </a>
         <div class="course-top-search">
           <div class="search-area" style="margin-top: 20px;">
-            <input  type="text" style="outline-width: 2px;" class="search-input" placeholder="搜索感兴趣的内容" appRainBow>
+            <input type="text" style="outline-width: 2px;" class="search-input" placeholder="搜索感兴趣的内容" appRainBow>
             <input type="hidden" class="btn_search">
             <ul class="search-area-result"></ul>
           </div>
@@ -25,7 +25,8 @@
                 <li [class]="direction === 'all'? 'course-nav-item on': 'course-nav-item'">
                   <a (click)="onSelect('all','all','all')">全部</a>
                 </li>
-                <li *ngFor="let dire of menu.direction" [class]="direction === dire.direction ? 'course-nav-item on': 'course-nav-item'">
+                <li *ngFor="let dire of menu.direction"
+                    [class]="direction === dire.direction ? 'course-nav-item on': 'course-nav-item'">
                   <a (click)="onSelect(dire.direction,'all',diff)">{{ dire.direction }}</a>
                 </li>
               </ul>
@@ -41,7 +42,7 @@
                   </li>
                   <span *ngFor="let dire of menu.direction">
                     <li *ngFor="let kin of dire.kind" [class]="kind === kin ? 'course-nav-item on': 'course-nav-item'">
-                      <a (click)="onSelect(dire.direction,kin,diff)" >{{ kin }}</a>
+                      <a (click)="onSelect(dire.direction,kin,diff)">{{ kin }}</a>
                     </li>
                   </span>
                 </ul>
@@ -54,7 +55,7 @@
             <div class="bd">
               <ul class>
                 <li [class]="diff === 'all'? 'course-nav-item on': 'course-nav-item'">
-                  <a (click)="onSelect(direction,kind,'all')"  >全部</a>
+                  <a (click)="onSelect(direction,kind,'all')">全部</a>
                 </li>
                 <li *ngFor="let dif of menu.diff" [class]="diff === dif ? 'course-nav-item on': 'course-nav-item'">
                   <a (click)="onSelect(direction,kind,dif)">{{ dif }}</a>

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {EmitService} from "../../route/emit.service";
 import {LoginService} from "./service/login.service";
 import {NzMessageService, NzNotificationService} from "ng-zorro-antd";
+import {Photourl} from "../../user/domian/photourl";
+import {UserPhoto} from "./domain/UserPhoto";
+import {DateService} from "../../allDate/date.service";
 
 @Component({
   selector: 'app-login',
@@ -12,12 +15,13 @@ export class LoginComponent implements OnInit {
 
   constructor(public emitService: EmitService,
               private loginService: LoginService,
+              private dateService: DateService,
               private message: NzMessageService) { }
 
   ngOnInit() {
     // 接收发射过来的数据
     this.emitService.eventEmit.subscribe((value: any) => {
-
+      console.log("denglu" + value);
       if(value === "login") {
         this.isVisible = true;
         // 这里就可以调取接口，刷新userList列表数据
@@ -116,6 +120,14 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("userName",this.loginName);
           this.message.create('success', '登录成功');
           this.loginService.setUserInfo(this.loginName).subscribe();
+          this.loginService.getUserPhoto(this.loginName).subscribe(
+            res => {
+              if (res) {
+                this.dateService.photoUrl = (res as UserPhoto).photoUrl;
+                localStorage.setItem("photoUrl", (res as UserPhoto).photoUrl);
+              }
+            }
+          );
         }
       },
       error => {

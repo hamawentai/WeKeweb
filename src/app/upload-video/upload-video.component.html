@@ -16,11 +16,11 @@
         <span>Delete</span>
       </button>
       <nz-collapse>
-        <nz-collapse-panel *ngFor="let catalog of catalogs let i = index" [nzHeader]="'第'+i+catalog.catalogName"
+        <nz-collapse-panel *ngFor="let catalog of catalogs let i = index" [nzHeader]="'第'+i+catalog.catalogName "
                            (nzActiveChange)="changeHeader(i,'1')">
           <p style="margin:0;" *ngFor="let chapter of catalog.chapters let j = index"
              (click)="changeTitle(i,j,catalog.catalogName,'2')">
-            {{ '第'+i+'.'+j+chapter }}
+            {{ '第'+i+' .'+j+chapter }}
           </p>
         </nz-collapse-panel>
       </nz-collapse>
@@ -29,7 +29,7 @@
         <input style="width: 335px;" type="text" [(ngModel)]="catalogs[i].chapters[j]" *ngIf="kind === '2'">
         <input style="width: 335px;" type="text" [(ngModel)]="catalogs[i].catalogName" *ngIf="kind === '1'">
         <nz-upload *ngIf="kind==='2'"
-                   nzAction="http://10.0.0.31:8080/upload/video"
+                   nzAction="{{ uploadUrl }}"
                    [nzFileList]="fileList"
                    nzMultiple
                    [nzLimit]="2"
@@ -44,8 +44,8 @@
   </nz-sider>
   <nz-layout>
     <nz-header style="background: #fff; padding:0;">
-      <input nz-input placeholder="输入课程标题" [(ngModel)]="courseName" [nzSize]="5"
-             style="width: 1430px; margin-left: 30px;">
+      <input nz-input placeholder="输入课程标题"  [(ngModel)]="courseName" [nzSize]="5"
+             style="width: 1038px; margin-left: 30px;">
       <button nz-button nzShape="circle" style="margin-left: 20px;" title="保存" (click)="save()">
         <i class="anticon anticon-check"></i>
       </button>

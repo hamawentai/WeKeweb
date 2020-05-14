@@ -5,7 +5,7 @@
         <div class="wenda-tip">已有同学回复你了，快去采纳为答案吧！帮助你的同学可得到+20经验。一起来努力吧！</div>
         <div class="qa-header">
           <a href="#" class="qa-author">
-            <img src="https://img3.mukewang.com/user/59e5c5b30001aa2601000100-40-40.jpg" width="40" height="40">
+            <img src="{{ reply.comment.photo }}" width="40" height="40">
             {{ reply.comment.nickname }}
           </a>
         </div>
@@ -45,7 +45,7 @@
             <div class="qa-comment-wrap clearfix  js-comment-accept-hover">
               <div class="qa-comment-author">
                 <a title="{{ re.nickname }}">
-                  <img src="https://img3.mukewang.com/user/59e5c5b30001aa2601000100-40-40.jpg" width="40" height="40">
+                  <img src="{{ re.photo }}" width="40" height="40">
                   <span class="qa-comment-nick">{{ re.nickname }}</span>
                 </a>
               </div>
@@ -88,8 +88,8 @@
                 <div class="qa-replies">
                   <div class="qa-reply-c">
                     <div *ngFor="let detail of re.details" class="qa-reply-item">
-                      <a class="qa-reply-item-author" title="{{ re.nickname }}">
-                        <img src="//img3.mukewang.com/user/59e5c5b30001aa2601000100-40-40.jpg">
+                      <a class="qa-reply-item-author" title="{{ detail.nickname}}">
+                        <img src="{{ detail.photo }}">
                       </a>
                       <div class="qa-reply-item-inner">
                         <p>
@@ -114,7 +114,7 @@
                   <div class="js-qa-reply-ibox qa-reply-ibox  clearfix" *ngIf="index===i.toString()">
                     <div class="qa-reply-iavator l">
                       <a  title="{{ userName }}">
-                        <img src="https://img3.mukewang.com/user/59e5c5b30001aa2601000100-40-40.jpg" width="40"
+                        <img src="{{  myPhotoUrl }}" width="40"
                              height="40">
                       </a>
                     </div>
@@ -142,8 +142,8 @@
         <!--回复这个主题-->
         <div class="qa-comment-input js-msg-context  clearfix">
           <div class="qa-ci-avator l">
-            <a title="丁丁鱼">
-              <img src="//img.mukewang.com/user/59e5c5b30001aa2601000100-40-40.jpg" width="40" height="40">
+            <a title="{{ userName }}">
+              <img src="{{ myPhotoUrl}}" width="40" height="40">
             </a>
           </div>
           <div class="qa-ci-wrap">
